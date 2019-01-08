@@ -1,0 +1,27 @@
+{
+  "name": "shopify-backend-s2019",
+  "version": "0.0.1",
+  "description": "Shopify Backend Developer Intern challenge for Summer 2019",
+  "main": "products.js",
+  "dependencies": {
+    "jsonwebtoken": "^8.4.0",
+    "node-rsa": "^1.0.2"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.384.0",
+    "serverless-offline": "^3.32.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RouzbehMajidi/shopify-backend-S2019.git"
+  },
+  "author": "Rouzbeh Majidi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RouzbehMajidi/shopify-backend-S2019/issues"
+  },
+  "homepage": "https://github.com/RouzbehMajidi/shopify-backend-S2019#readme"
+}

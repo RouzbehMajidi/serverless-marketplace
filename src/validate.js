@@ -80,11 +80,20 @@ module.exports.carts.info = (userJSON) => {
     }catch(err){
         return Promise.reject("Invalid user.");
     }
+    
     return new Promise((resolve,reject) => {
         if(!user.username || user.username == ""){
             reject("Invalid username.");
         }
+
         resolve(user.username);
+    }).then(db.carts.get)
+    .then(userQuery => {
+        if(userQuery){
+            return user.username
+        }else{
+            return Promise.reject(`The cart does not exist.`)
+        }
     });
 }
 

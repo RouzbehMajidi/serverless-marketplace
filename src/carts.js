@@ -6,7 +6,7 @@ var security = require('./security.js');
 
 module.exports.create = async (event, context) => {
   try{
-    var user = await validate.carts.create(event.body);
+    var username = await validate.carts.create(event.body);
   }catch(err){
     console.log(err);
     return {
@@ -16,25 +16,26 @@ module.exports.create = async (event, context) => {
       }),
     };
   }
-  return db.carts.create(user)
+
+  return db.carts.create(username)
     .then(security.jwt.generate)
     .then((secret) => {
         return {
             statusCode: 200,
             body: JSON.stringify({
-              message: "Successfully created new cart. 😄",
-              username: user.username,
+              username: username,
               secret: secret
             }),
           };
     })
     .catch(err => {
-        return {
-          statusCode: 400,
-          body: JSON.stringify({
-            error: err
-          }),
-        };
+      console.log(err);
+      return {
+        statusCode: 400,
+        body: JSON.stringify({
+          error: err
+        }),
+      };
     });
 };
 
@@ -68,7 +69,6 @@ module.exports.addItem = async (event, context) => {
       return {
           statusCode: 200,
           body: JSON.stringify({
-            message: `Successfully added '${request.item}' to cart. ✅`,
             username: user.username,
             totalCost: totalCost,
             cart: user.cart
@@ -121,7 +121,6 @@ module.exports.removeItem = async (event, context) => {
     return {
         statusCode: 200,
         body: JSON.stringify({
-          message: `Successfully removed '${request.item}' from cart. ✅`,
           username: user.username,
           totalCost: totalCost,
           cart: user.cart,
@@ -211,7 +210,6 @@ module.exports.info = async (event, context) => {
     return {
         statusCode: 200,
         body: JSON.stringify({
-          message: "Cart Info 📄",
           username: user.username,
           totalCost: totalCost,
           cart: user.cart

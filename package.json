@@ -2,7 +2,7 @@
   "name": "shopify-backend-s2019",
   "version": "0.0.1",
   "description": "Shopify Backend Developer Intern challenge for Summer 2019",
-  "main": "products.js",
+  "main": "carts.js",
   "dependencies": {
     "jsonwebtoken": "^8.4.0",
     "node-rsa": "^1.0.2"

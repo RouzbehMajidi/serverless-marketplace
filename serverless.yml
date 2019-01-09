@@ -9,6 +9,7 @@ provider:
     - main
   environment:
     PRODUCTS_TABLE: ${self:service}-products
+    CARTS_TABLE: ${self:service}-carts
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -20,6 +21,13 @@ provider:
         - dynamodb:DeleteItem
       Resource: 
         - arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.PRODUCTS_TABLE}
+    - Effect: Allow
+      Action:
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+      Resource: 
+        - arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.CARTS_TABLE}
 
 functions:
   updateItem:
@@ -43,14 +51,41 @@ functions:
         path: products/query
         method: post
         private: true
-  purchaseItem:
-    handler: src/products.purchase
+  createCart:
+    handler: src/carts.create
     events:
     - http:
-        path: products/purchase
+        path: cart/create
         method: post
         private: true
-
+  updateCart_addItem:
+    handler: src/carts.addItem
+    events:
+    - http:
+        path: cart/update
+        method: put
+        private: true
+  updateCart_removeItem:
+    handler: src/carts.removeItem
+    events:
+    - http:
+        path: cart/update
+        method: delete
+        private: true
+  completeCart:
+    handler: src/carts.complete
+    events:
+    - http:
+        path: cart/complete
+        method: post
+        private: true
+  cartInfo:
+    handler: src/carts.info
+    events:
+    - http:
+        path: cart/info
+        method: post
+        private: true
 
 resources:
   Resources:
@@ -63,6 +98,19 @@ resources:
             AttributeType: S
         KeySchema:
           - AttributeName: title
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+    CartsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.CARTS_TABLE}
+        AttributeDefinitions:
+          - AttributeName: username
+            AttributeType: S
+        KeySchema:
+          - AttributeName: username
             KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 1

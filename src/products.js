@@ -9,7 +9,10 @@ module.exports.update = async (event, context) => {
   .then(item => {
     return {
       statusCode: 200,
-      body: JSON.stringify(item),
+      body: JSON.stringify({
+        message: "Successfully updated product.",
+        product: item
+      }),
     };
   })
   .catch(err => {
@@ -24,11 +27,18 @@ module.exports.update = async (event, context) => {
 
 module.exports.getAll = async (event, context) => {
   return await db.products.getAll()
-  .then(item => {
-    return {
-      statusCode: 200,
-      body: JSON.stringify(item),
-    };
+  .then(items => {
+    let response = {
+      statusCode: 200
+    }
+    if (items.length == 0){
+      response.body = JSON.stringify({
+        message: "No products available."
+      })
+    }else{
+      response.body = JSON.stringify(items)
+    }
+    return response;
   })
   .catch(err => {
     return {
@@ -43,11 +53,21 @@ module.exports.getAll = async (event, context) => {
 module.exports.query = async (event, context) => {
   return await validate.products.query(event.body)
   .then(db.products.query)
-  .then(item => {
-    return {
-      statusCode: 200,
-      body: JSON.stringify(item),
-    };
+  .then(items => {
+    let response = {
+      statusCode: 200
+    }
+    if (items.length == 0){
+      response.body = JSON.stringify({
+        message: "No products match search query."
+      })
+    }else{
+      response.body = JSON.stringify({
+        message: `${items.length} product(s) found.`,
+        products: items
+      })
+    }
+    return response;
   })
   .catch(err => {
     return {

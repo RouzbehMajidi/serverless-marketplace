@@ -8,6 +8,7 @@ provider:
   apiKeys:
     - main
   environment:
+    ISSUER: ${self:service}
     PRODUCTS_TABLE: ${self:service}-products
     CARTS_TABLE: ${self:service}-carts
   iamRoleStatements:
@@ -37,6 +38,8 @@ functions:
         path: products/update
         method: post
         private: true
+        authorizer: adminAuth
+        cors: false
   getItems:
     handler: src/products.getAll
     events:
@@ -44,6 +47,7 @@ functions:
         path: products/query
         method: get
         private: true
+        cors: false
   queryItem:
     handler: src/products.query
     events:
@@ -51,6 +55,7 @@ functions:
         path: products/query
         method: post
         private: true
+        cors: false
   createCart:
     handler: src/carts.create
     events:
@@ -58,6 +63,7 @@ functions:
         path: cart/create
         method: post
         private: true
+        cors: false
   updateCart_addItem:
     handler: src/carts.addItem
     events:
@@ -65,6 +71,8 @@ functions:
         path: cart/update
         method: put
         private: true
+        authorizer: userAuth
+        cors: false
   updateCart_removeItem:
     handler: src/carts.removeItem
     events:
@@ -72,6 +80,8 @@ functions:
         path: cart/update
         method: delete
         private: true
+        authorizer: userAuth
+        cors: false
   completeCart:
     handler: src/carts.complete
     events:
@@ -79,6 +89,8 @@ functions:
         path: cart/complete
         method: post
         private: true
+        authorizer: userAuth
+        cors: false
   cartInfo:
     handler: src/carts.info
     events:
@@ -86,6 +98,12 @@ functions:
         path: cart/info
         method: post
         private: true
+        authorizer: userAuth
+        cors: false
+  userAuth:
+    handler: src/security.userAuthorizer
+  adminAuth:
+    handler: src/security.adminAuthorizer
 
 resources:
   Resources:

@@ -1,17 +1,30 @@
 'use strict';
 
 var validate = require('./validate.js');
-var db = require('./db.js')
+var db = require('./db.js');
+var security = require('./security.js');
 
 module.exports.create = async (event, context) => {
-    return await validate.carts.create(event.body)
-    .then(db.carts.create)
-    .then((user) => {
+  try{
+    var user = await validate.carts.create(event.body);
+  }catch(err){
+    console.log(err);
+    return {
+      statusCode: 400,
+      body: JSON.stringify({
+        error: err
+      }),
+    };
+  }
+  return db.carts.create(user)
+    .then(security.jwt.generate)
+    .then((secret) => {
         return {
             statusCode: 200,
             body: JSON.stringify({
-              message: "Successfully created new cart.",
-              username: user.username
+              message: "Successfully created new cart. 😄",
+              username: user.username,
+              secret: secret
             }),
           };
     })
@@ -55,7 +68,7 @@ module.exports.addItem = async (event, context) => {
       return {
           statusCode: 200,
           body: JSON.stringify({
-            message: `Successfully added '${request.item}' to cart.`,
+            message: `Successfully added '${request.item}' to cart. ✅`,
             username: user.username,
             totalCost: totalCost,
             cart: user.cart
@@ -108,7 +121,7 @@ module.exports.removeItem = async (event, context) => {
     return {
         statusCode: 200,
         body: JSON.stringify({
-          message: `Successfully removed '${request.item}' from cart.`,
+          message: `Successfully removed '${request.item}' from cart. ✅`,
           username: user.username,
           totalCost: totalCost,
           cart: user.cart,
@@ -161,7 +174,7 @@ module.exports.complete = async (event, context) => {
     return {
         statusCode: 200,
         body: JSON.stringify({
-          message: "Successfully completed cart.",
+          message: "Successfully completed cart. 📦",
         }),
       };
   })
@@ -198,7 +211,7 @@ module.exports.info = async (event, context) => {
     return {
         statusCode: 200,
         body: JSON.stringify({
-          message: "Cart Info",
+          message: "Cart Info 📄",
           username: user.username,
           totalCost: totalCost,
           cart: user.cart

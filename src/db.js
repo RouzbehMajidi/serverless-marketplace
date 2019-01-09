@@ -65,13 +65,13 @@ module.exports.products.query = (productQuery) => {
     if(productQuery.onlyShowAvailable){
         params.FilterExpression =  "contains (title, :title) and inventory_count > :count";
         params.ExpressionAttributeValues =  {
-            ":title" : productQuery.search,
+            ":title" : productQuery.query,
             ":count" : 0
         }
     }else{
         params.FilterExpression =  "contains (title, :title)",
         params.ExpressionAttributeValues =  {
-            ":title" : productQuery.search
+            ":title" : productQuery.query
         }
     }
     return new Promise((resolve,reject) => {
@@ -135,11 +135,7 @@ module.exports.carts.get = (username) => {
             if(err){
                 reject(err);
             }else{
-                if(data.Item){
-                    resolve(data.Item);
-                }else{
-                    reject("Cart does not exist");
-                }
+                resolve(data.Item);
             }
         });
     });

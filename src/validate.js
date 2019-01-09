@@ -33,7 +33,7 @@ module.exports.products.query = (productQueryJSON) => {
         return Promise.reject("Invalid item query.");
     }
     return new Promise((resolve,reject) => {
-        if(!productQuery.search){
+        if(!productQuery.query){
             reject("Invalid product search query.");
         }
         resolve(productQuery);
@@ -57,11 +57,20 @@ module.exports.carts.create = (userJSON) => {
     }catch(err){
         return Promise.reject("Invalid user.");
     }
+    
     return new Promise((resolve,reject) => {
         if(!user.username || user.username == ""){
             reject("Invalid username.");
         }
+
         resolve(user.username);
+    }).then(db.carts.get)
+    .then(userQuery => {
+        if(userQuery){
+            return Promise.reject(`The username '${user.username}' has already been taken. 😢`)
+        }else{
+            return user.username
+        }
     });
 }
 

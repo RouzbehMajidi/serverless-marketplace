@@ -1,4 +1,6 @@
 # API Usage Guide
+> *Heads up!* 
+> All API requests **will** require the pre-provided `x-api-key` header
 
 ## Products
 ### Querying Inventory

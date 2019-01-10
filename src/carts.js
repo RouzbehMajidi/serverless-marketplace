@@ -41,7 +41,7 @@ module.exports.create = async (event, context) => {
 
 module.exports.addItem = async (event, context) => {
     try{
-      var request = await validate.carts.update(event.body);
+      var request = await validate.carts.update(event.body, event.requestContext.authorizer.principalId);
     }catch(err){
       console.log(err);
       return {
@@ -54,6 +54,10 @@ module.exports.addItem = async (event, context) => {
 
     return db.carts.get(request.username)
     .then((user) => {
+      if(!user){
+        return Promise.reject("Invalid user.");
+      }
+
       if(user.cart[request.item]){
         var quantity = user.cart[request.item].quantity + 1;
         user.cart[request.item] =  {quantity: quantity};
@@ -88,7 +92,7 @@ module.exports.addItem = async (event, context) => {
 
 module.exports.removeItem = async (event, context) => {
   try{
-    var request = await validate.carts.update(event.body);
+    var request = await validate.carts.update(event.body,event.requestContext.authorizer.principalId);
   }catch(err){
     console.log(err);
     return {
@@ -101,6 +105,9 @@ module.exports.removeItem = async (event, context) => {
 
   return db.carts.get(request.username)
   .then((user) => {
+    if(!user){
+      return Promise.reject("Invalid user.");
+    }
     if(user.cart[request.item]){
       var quantity = user.cart[request.item].quantity - 1;
 
@@ -140,7 +147,7 @@ module.exports.removeItem = async (event, context) => {
 
 module.exports.complete = async (event, context) => {
   try{
-    var request = await validate.carts.complete(event.body);
+    var request = await validate.carts.complete(event.body,event.requestContext.authorizer.principalId);
   }catch(err){
     console.log(err);
     return {
@@ -191,7 +198,7 @@ module.exports.complete = async (event, context) => {
 
 module.exports.info = async (event, context) => {
   try{
-    var request = await validate.carts.info(event.body);
+    var request = await validate.carts.info(event.body,event.requestContext.authorizer.principalId);
   }catch(err){
     console.log(err);
     return {

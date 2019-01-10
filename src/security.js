@@ -61,32 +61,6 @@ module.exports.adminAuthorizer = (event, context, callback) => {
     } 
 }
 
-module.exports.adminAuthorizer = (event, context, callback) => {
-    if(event.authorizationToken === secrets.adminSecret){
-        const effect = 'Allow';
-        const authorizerContext = { user: JSON.stringify({
-            user: 'admin'
-        }) };
-        const policy = {
-            principalId: 'admin',
-            policyDocument: {
-              Version: '2012-10-17',
-              Statement: [
-                {
-                  Action: 'execute-api:Invoke',
-                  Effect: effect,
-                  Resource: event.methodArn,
-                },
-              ],
-            },
-            authorizerContext,
-          };
-        return callback(null, policy);
-    }else{
-        return callback('Unauthorized');
-    } 
-}
-
 module.exports.jwt = {};
 
 module.exports.jwt.generate = (user) => {

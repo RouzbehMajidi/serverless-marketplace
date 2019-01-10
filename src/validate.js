@@ -13,6 +13,9 @@ module.exports.products.update = (productJSON) => {
     }
 
     return new Promise((resolve,reject) => {
+        if(!product){
+            reject("Invalid request.");
+        }
         if(!product.title || product.title == ""){
             reject("Invalid item title.");
         }
@@ -33,6 +36,9 @@ module.exports.products.query = (productQueryJSON) => {
         return Promise.reject("Invalid item query.");
     }
     return new Promise((resolve,reject) => {
+        if(!productQuery){
+            reject("Invalid request.");
+        }
         if(!productQuery.query){
             reject("Invalid product search query.");
         }
@@ -44,6 +50,9 @@ module.exports.products.purchase = (productQueryJSON) => {
     return new Promise((resolve,reject) => {
         try{
             var productQuery = JSON.parse(productQueryJSON);
+            if(!productQuery){
+                reject("Invalid request.");
+            }
             resolve(productQuery);
         }catch(err){
             reject("Invalid item query.");
@@ -55,14 +64,16 @@ module.exports.carts.create = (userJSON) => {
     try{
         var user = JSON.parse(userJSON);
     }catch(err){
-        return Promise.reject("Invalid user.");
+        return Promise.reject("Invalid request.");
     }
     
     return new Promise((resolve,reject) => {
+        if(!user){
+            reject("Invalid user.");
+        }
         if(!user.username || user.username == ""){
             reject("Invalid username.");
         }
-
         resolve(user.username);
     }).then(db.carts.get)
     .then(userQuery => {
@@ -74,7 +85,7 @@ module.exports.carts.create = (userJSON) => {
     });
 }
 
-module.exports.carts.info = (userJSON) => {
+module.exports.carts.info = (userJSON, principalID) => {
     try{
         var user = JSON.parse(userJSON);
     }catch(err){
@@ -82,10 +93,15 @@ module.exports.carts.info = (userJSON) => {
     }
     
     return new Promise((resolve,reject) => {
+        if(!user){
+            reject("Invalid request.");
+        }
         if(!user.username || user.username == ""){
             reject("Invalid username.");
         }
-
+        if(user.username !== principalID){
+            reject("Unauthorized.");
+        }
         resolve(user.username);
     }).then(db.carts.get)
     .then(userQuery => {
@@ -97,14 +113,21 @@ module.exports.carts.info = (userJSON) => {
     });
 }
 
-module.exports.carts.update = (requestJSON) => {
+module.exports.carts.update = (requestJSON, principalID) => {
     try{
         var request = JSON.parse(requestJSON);
     }catch(err){
         return Promise.reject("Invalid request.");
     }
+
+    if(!request){
+        reject("Invalid request.");
+    }
     if(!request.username || request.username == ""){
         return Promise.reject("Invalid username.");
+    }
+    if(request.username !== principalID){
+        return Promise.reject("Unauthorized.");
     }
     if(!request.item || request.item == ""){
         return Promise.reject("Invalid item.");
@@ -120,15 +143,21 @@ module.exports.carts.update = (requestJSON) => {
     });
 }
 
-module.exports.carts.complete = (requestJSON) => {
+module.exports.carts.complete = (requestJSON, principalID) => {
     try{
         var user = JSON.parse(requestJSON);
     }catch(err){
         return Promise.reject("Invalid user.");
     }
     return new Promise((resolve,reject) => {
+        if(!user){
+            reject("Invalid request.");
+        }
         if(!user.username || user.username == ""){
             reject("Invalid username.");
+        }
+        if(user.username !== principalID){
+            reject("Unauthorized.");
         }
         resolve(user);
     });

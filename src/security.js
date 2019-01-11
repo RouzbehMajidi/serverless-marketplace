@@ -7,7 +7,8 @@ const options = {
     issuer: process.env.ISSUER
 }
 
-module.exports.userAuthorizer = (event, context, callback) => {
+//User custom lambda authorizer
+module.exports.userAuthorizer = (event, context) => {
     const token = event.authorizationToken;
 
     try {
@@ -15,36 +16,39 @@ module.exports.userAuthorizer = (event, context, callback) => {
         context.succeed(generatePolicy(user.username, 'Allow', event.methodArn.split('/').slice(0, 2).join('/') + '/*'));
     } catch (e) {
         context.fail("Unauthorized");
-    }  
+    }
 }
 
-module.exports.adminAuthorizer = (event, context, callback) => {
-    if(event.authorizationToken === secrets.adminSecret){
+//Admin custom lambda authorizer
+module.exports.adminAuthorizer = (event, context) => {
+    if (event.authorizationToken === secrets.adminSecret) {
         context.succeed(generatePolicy('admin', 'Allow', event.methodArn));
-    }else{
+    } else {
         context.fail("Unauthorized");
-    } 
+    }
 }
 
+//IAM Policy generation helper
 const generatePolicy = (principalId, effect, resource) => {
     const authResponse = {};
     authResponse.principalId = principalId;
     if (effect && resource) {
-      const policyDocument = {};
-      policyDocument.Version = '2012-10-17';
-      policyDocument.Statement = [];
-      const statementOne = {};
-      statementOne.Action = 'execute-api:Invoke';
-      statementOne.Effect = effect;
-      statementOne.Resource = resource;
-      policyDocument.Statement[0] = statementOne;
-      authResponse.policyDocument = policyDocument;
+        const policyDocument = {};
+        policyDocument.Version = '2012-10-17';
+        policyDocument.Statement = [];
+        const statementOne = {};
+        statementOne.Action = 'execute-api:Invoke';
+        statementOne.Effect = effect;
+        statementOne.Resource = resource;
+        policyDocument.Statement[0] = statementOne;
+        authResponse.policyDocument = policyDocument;
     }
     return authResponse;
-  };
+};
 
 module.exports.jwt = {};
 
+//JWT generation helper
 module.exports.jwt.generate = (user) => {
     const payload = {
         username: user.username
@@ -53,12 +57,13 @@ module.exports.jwt.generate = (user) => {
     return JWT.sign(payload, secrets.jwtSecret, options);
 }
 
+//JWT validation helper
 module.exports.jwt.validate = (user, token) => {
-    const payload = JWT.verify(token,secrets.jwtSecret, options);
+    const payload = JWT.verify(token, secrets.jwtSecret, options);
 
-    if(payload.username !== user.username){
+    if (payload.username !== user.username) {
         return Promise.reject("Invalid username.")
-    }else{
+    } else {
         return user;
     }
 }

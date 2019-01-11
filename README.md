@@ -102,7 +102,10 @@ A much better system would require users to specify a password for their account
 *Additionally due to the limited scope of this submission, the system's secrets were stored as a `secrets.json` file on the version control, however this is **BAD** practice. In reality secrets should be stored in a secure secrets store, in this case (as the application is a serverless one hosted on AWS), this would ideally be AWS SSM Parameter Store or AWS Secrets Manager, however this was not done as it would unnecessarily increase the complexity and scope of the submission.*
 
 ## Testing
-The [Newman framework](https://github.com/postmanlabs/newman) was chosen for running automated tests on the system. These tests were generated using [Postman](https://www.getpostman.com). This was done mainly due to the limited scope of the project and the ease of implementation of the Postman tests. This also allows interviewers to easily test the application using the Postman tests.
+
+The [Newman framework](https://github.com/postmanlabs/newman) was chosen for running automated tests on the system. These tests were generated using [Postman](https://www.getpostman.com). This was done mainly due to the limited scope of the project and the ease of implementation of the Postman tests. This also allows interviewers to easily test the application using the Postman tests. In order to test the API a Postman test collection and the respective `local` and `cloud` environments have been provided under `/test/`. These tests can be run manually (after running `npm install`) using `npm test-local` and `npm test-cloud` for local and cloud environments respectively. 
+
+These tests assume that an environment has been setup already and essentially perform blackbox positive and negative testing on the API. The local tests make the assumption that the system is running via the `serverless-offline` plugin on `http://localhost:3000/`. While the cloud test environment runs fully on the AWS cloud. For both instances tests will be using the real database instance.
 
 ### Future Improvements
 

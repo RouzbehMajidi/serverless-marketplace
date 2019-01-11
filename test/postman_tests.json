@@ -1,0 +1,2400 @@
+{
+	"info": {
+		"_postman_id": "37244205-6154-41bf-84a6-dc1feed0ac85",
+		"name": "Serverless Marketplace API Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Update",
+					"item": [
+						{
+							"name": "Missing Admin Secret",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "7f9b2641-e940-4f19-a61e-b57c69dd2237",
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {",
+											"    pm.response.to.have.status(401);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{}"
+								},
+								"url": {
+									"raw": "{{url}}/products/update",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Admin Secret",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e4824418-cc44-4e24-8e40-b97bbf433474",
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {",
+											"    pm.response.to.have.status(401);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "HelloWorld"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{}"
+								},
+								"url": {
+									"raw": "{{url}}/products/update",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "74fc7230-9555-4ce5-8c0e-1d6090672b09",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{x-api-key}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{adminSecret}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{"
+								},
+								"url": {
+									"raw": "{{url}}/products/update",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Empty Request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "5039b0a9-96b8-44ce-90c2-5d44cc9f80e6",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{x-api-key}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{adminSecret}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\n}"
+								},
+								"url": {
+									"raw": "{{url}}/products/update",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Empty Title",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4c8e99ac-5703-4b06-a8ae-b4194864f29f",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{adminSecret}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"title\":\"\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/products/update",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Missing Price",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "9bec3a8b-2059-4a9d-b68b-94ecb3d18c7a",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{adminSecret}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"title\":\"test sweater\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/products/update",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Price",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "3258da19-19e3-4d83-95a0-9332d100b4de",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{adminSecret}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"title\":\"test sweater\",\n\t\"price\":-1\n}"
+								},
+								"url": {
+									"raw": "{{url}}/products/update",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Missing Inventory Count",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "191f827c-d68d-47f2-a887-ae0a77c1da78",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{adminSecret}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"title\":\"test sweater\",\n\t\"price\":10\n}"
+								},
+								"url": {
+									"raw": "{{url}}/products/update",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Inventory Count",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "28cee762-9771-4de7-b9d7-4cc6b3616993",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{adminSecret}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"title\":\"test sweater\",\n\t\"price\":10,\n\t\"inventory_count\":-1\n}"
+								},
+								"url": {
+									"raw": "{{url}}/products/update",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Item Success",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b624e714-2fa7-4764-89af-2734b3f383e6",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{adminSecret}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"title\":\"test sweater\",\n\t\"price\":10,\n\t\"inventory_count\":10\n}"
+								},
+								"url": {
+									"raw": "{{url}}/products/update",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Item Sucess",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c8b0b36f-ebb7-4eac-ae30-88e6c18a5652",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{adminSecret}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"title\":\"test sweater\",\n\t\"price\":10,\n\t\"inventory_count\":1\n}"
+								},
+								"url": {
+									"raw": "{{url}}/products/update",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"update"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Query",
+					"item": [
+						{
+							"name": "Get All Items",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "86e102c1-b8ff-4a11-9788-163bca24a5f7",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/products/query",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"query"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "5c75540c-a047-4710-88ca-8238b6c2ef6e",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{"
+								},
+								"url": {
+									"raw": "{{url}}/products/query",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"query"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Empty Request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "88f1d2fa-e367-4278-a0a6-de2556c85e65",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{}"
+								},
+								"url": {
+									"raw": "{{url}}/products/query",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"query"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Empty Query",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2f3ea154-5239-4788-a507-547e5a81b58d",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"query\":\"\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/products/query",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"query"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Query Success",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "34d446f8-4409-4339-bab7-c65fe1c6ba3e",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"query\":\"swe\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/products/query",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"query"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Query Sucess  - Filter unvailable items - False",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "07a8d85b-0389-411b-913b-0ec580dd9560",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"query\":\"swe\",\n\t\"onlyShowAvailableItems\":false\n}"
+								},
+								"url": {
+									"raw": "{{url}}/products/query",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"query"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Query Sucess  - Filter unvailable items - True",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "42fe8adb-5c44-4f6b-a7d7-b051fd8c7360",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"query\":\"swe\",\n\t\"onlyShowAvailableItems\":true\n}"
+								},
+								"url": {
+									"raw": "{{url}}/products/query",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"query"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "Cart",
+			"item": [
+				{
+					"name": "Create",
+					"item": [
+						{
+							"name": "Invalid Request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "7b9616cf-cc28-4ebd-b357-5e170933ffdc",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{"
+								},
+								"url": {
+									"raw": "{{url}}/cart/create",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"cart",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d507660c-cc5d-4a89-99e7-160e92dc4ec9",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n}"
+								},
+								"url": {
+									"raw": "{{url}}/cart/create",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"cart",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Empty Username",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8402ece2-2fbb-4d95-84b0-4d2ebb48e369",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\":\"\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/cart/create",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"cart",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User create success",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2a5423dc-6339-4013-9f77-7e179d6c7ddb",
+										"exec": [
+											"var uuid = require('uuid');",
+											"pm.environment.set('username', 'test-' + uuid.v4());",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "116e2d1e-b211-445f-b329-742d4a4444c5",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"})",
+											"",
+											"var data = JSON.parse(responseBody);",
+											"pm.environment.set('userSecret', data.secret);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\":\"{{username}}\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/cart/create",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"cart",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User cart exists",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2a5423dc-6339-4013-9f77-7e179d6c7ddb",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "116e2d1e-b211-445f-b329-742d4a4444c5",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\":\"{{username}}\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/cart/create",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"cart",
+										"create"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Update",
+					"item": [
+						{
+							"name": "Missing user secret",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2a5423dc-6339-4013-9f77-7e179d6c7ddb",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "116e2d1e-b211-445f-b329-742d4a4444c5",
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {",
+											"    pm.response.to.have.status(401);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/cart/update",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"cart",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid user secret",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2a5423dc-6339-4013-9f77-7e179d6c7ddb",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "116e2d1e-b211-445f-b329-742d4a4444c5",
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {",
+											"    pm.response.to.have.status(401);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "HelloWorld",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/cart/update",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"cart",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid username",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2a5423dc-6339-4013-9f77-7e179d6c7ddb",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "116e2d1e-b211-445f-b329-742d4a4444c5",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{userSecret}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\":\"{{$guid}}\",\n\t\"item\":\"blue sweater\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/cart/update",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"cart",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Item Success - 1",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2a5423dc-6339-4013-9f77-7e179d6c7ddb",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "116e2d1e-b211-445f-b329-742d4a4444c5",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{userSecret}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\":\"{{username}}\",\n\t\"item\":\"test sweater\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/cart/update",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"cart",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Item Success - 2",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2a5423dc-6339-4013-9f77-7e179d6c7ddb",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "116e2d1e-b211-445f-b329-742d4a4444c5",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{userSecret}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\":\"{{username}}\",\n\t\"item\":\"test sweater\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/cart/update",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"cart",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Item Success - 3",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2a5423dc-6339-4013-9f77-7e179d6c7ddb",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "116e2d1e-b211-445f-b329-742d4a4444c5",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{userSecret}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\":\"{{username}}\",\n\t\"item\":\"test sweater\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/cart/update",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"cart",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove Item Sucess - 1",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2a5423dc-6339-4013-9f77-7e179d6c7ddb",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "116e2d1e-b211-445f-b329-742d4a4444c5",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{userSecret}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\":\"{{username}}\",\n\t\"item\":\"test sweater\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/cart/update",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"cart",
+										"update"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Info",
+					"item": [
+						{
+							"name": "Missing user secret",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2a5423dc-6339-4013-9f77-7e179d6c7ddb",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "116e2d1e-b211-445f-b329-742d4a4444c5",
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {",
+											"    pm.response.to.have.status(401);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/cart/info",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"cart",
+										"info"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid user secret",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2a5423dc-6339-4013-9f77-7e179d6c7ddb",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "116e2d1e-b211-445f-b329-742d4a4444c5",
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {",
+											"    pm.response.to.have.status(401);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "HelloWorld",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/cart/info",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"cart",
+										"info"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid username",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2a5423dc-6339-4013-9f77-7e179d6c7ddb",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "116e2d1e-b211-445f-b329-742d4a4444c5",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{userSecret}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\":\"{{$guid}}\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/cart/info",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"cart",
+										"info"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get User Cart sucess",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2a5423dc-6339-4013-9f77-7e179d6c7ddb",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "116e2d1e-b211-445f-b329-742d4a4444c5",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{userSecret}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\":\"{{username}}\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/cart/info",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"cart",
+										"info"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Complete",
+					"item": [
+						{
+							"name": "Missing user secret",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2a5423dc-6339-4013-9f77-7e179d6c7ddb",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "116e2d1e-b211-445f-b329-742d4a4444c5",
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {",
+											"    pm.response.to.have.status(401);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/cart/complete",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"cart",
+										"complete"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid user secret",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2a5423dc-6339-4013-9f77-7e179d6c7ddb",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "116e2d1e-b211-445f-b329-742d4a4444c5",
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {",
+											"    pm.response.to.have.status(401);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "HelloWorld",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/cart/complete",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"cart",
+										"complete"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid username",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2a5423dc-6339-4013-9f77-7e179d6c7ddb",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "116e2d1e-b211-445f-b329-742d4a4444c5",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{userSecret}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\":\"{{$guid}}\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/cart/complete",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"cart",
+										"complete"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Complete user cart out of stock error",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2a5423dc-6339-4013-9f77-7e179d6c7ddb",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "116e2d1e-b211-445f-b329-742d4a4444c5",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{userSecret}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\":\"{{username}}\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/cart/complete",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"cart",
+										"complete"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove Item Sucess - 2",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2a5423dc-6339-4013-9f77-7e179d6c7ddb",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "116e2d1e-b211-445f-b329-742d4a4444c5",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{userSecret}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\":\"{{username}}\",\n\t\"item\":\"test sweater\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/cart/update",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"cart",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Complete user cart success",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2a5423dc-6339-4013-9f77-7e179d6c7ddb",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "116e2d1e-b211-445f-b329-742d4a4444c5",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{userSecret}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\":\"{{username}}\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/cart/complete",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"cart",
+										"complete"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Complete user cart empty error",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2a5423dc-6339-4013-9f77-7e179d6c7ddb",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "116e2d1e-b211-445f-b329-742d4a4444c5",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{userSecret}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\":\"{{username}}\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/cart/complete",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"cart",
+										"complete"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "486ef32f-27b8-467a-b43d-2e6634de3c2d",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6c4549c8-8f22-4561-9ae4-3eff24252bd3",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "36c18899-baca-4317-aaea-52cb0d609e8e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "384d6154-d937-4434-a51a-927ae4f7aa3f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

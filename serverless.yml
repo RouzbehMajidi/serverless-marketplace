@@ -1,4 +1,4 @@
-service: shopify-backend-S2019
+service: serverless-marketplace
 
 provider:
   name: aws
@@ -47,7 +47,6 @@ functions:
         path: products/query
         method: get
         private: true
-        cors: false
   queryItem:
     handler: src/products.query
     events:
@@ -55,7 +54,6 @@ functions:
         path: products/query
         method: post
         private: true
-        cors: false
   createCart:
     handler: src/carts.create
     events:
@@ -63,7 +61,6 @@ functions:
         path: cart/create
         method: post
         private: true
-        cors: false
   updateCart_addItem:
     handler: src/carts.addItem
     events:
@@ -72,7 +69,6 @@ functions:
         method: put
         private: true
         authorizer: userAuth
-        cors: false
   updateCart_removeItem:
     handler: src/carts.removeItem
     events:
@@ -81,7 +77,6 @@ functions:
         method: delete
         private: true
         authorizer: userAuth
-        cors: false
   completeCart:
     handler: src/carts.complete
     events:
@@ -90,7 +85,6 @@ functions:
         method: post
         private: true
         authorizer: userAuth
-        cors: false
   cartInfo:
     handler: src/carts.info
     events:
@@ -99,7 +93,6 @@ functions:
         method: post
         private: true
         authorizer: userAuth
-        cors: false
   userAuth:
     handler: src/security.userAuthorizer
   adminAuth:
@@ -133,86 +126,8 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-
 package:
   excludeDevDependencies: true
-
-
-
-# you can add statements to the Lambda function's IAM Role here
-#  iamRoleStatements:
-#    - Effect: "Allow"
-#      Action:
-#        - "s3:ListBucket"
-#      Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ] ]  }
-#    - Effect: "Allow"
-#      Action:
-#        - "s3:PutObject"
-#      Resource:
-#        Fn::Join:
-#          - ""
-#          - - "arn:aws:s3:::"
-#            - "Ref" : "ServerlessDeploymentBucket"
-#            - "/*"
-
-# you can define service wide environment variables here
-#  environment:
-#    variable1: value1
-
-# you can add packaging information here
-#package:
-#  include:
-#    - include-me.js
-#    - include-me-dir/**
-#  exclude:
-#    - exclude-me.js
-#    - exclude-me-dir/**
-
-
-#    The following are a few example events you can configure
-#    NOTE: Please make sure to change your handler code to work with those events
-#    Check the event documentation for details
-#    events:
-#      - http:
-#          path: users/create
-#          method: get
-#      - s3: ${env:BUCKET}
-#      - schedule: rate(10 minutes)
-#      - sns: greeter-topic
-#      - stream: arn:aws:dynamodb:region:XXXXXX:table/foo/stream/1970-01-01T00:00:00.000
-#      - alexaSkill: amzn1.ask.skill.xx-xx-xx-xx
-#      - alexaSmartHome: amzn1.ask.skill.xx-xx-xx-xx
-#      - iot:
-#          sql: "SELECT * FROM 'some_topic'"
-#      - cloudwatchEvent:
-#          event:
-#            source:
-#              - "aws.ec2"
-#            detail-type:
-#              - "EC2 Instance State-change Notification"
-#            detail:
-#              state:
-#                - pending
-#      - cloudwatchLog: '/aws/lambda/hello'
-#      - cognitoUserPool:
-#          pool: MyUserPool
-#          trigger: PreSignUp
-
-#    Define function environment variables here
-#    environment:
-#      variable2: value2
-
-# you can add CloudFormation resource templates here
-#resources:
-#  Resources:
-#    NewResource:
-#      Type: AWS::S3::Bucket
-#      Properties:
-#        BucketName: my-new-bucket
-#  Outputs:
-#     NewOutput:
-#       Description: "Description for the output"
-#       Value: "Some output value"
-
+  
 plugins:
   - serverless-offline

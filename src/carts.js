@@ -161,6 +161,10 @@ module.exports.complete = async (event, context) => {
   return db.carts.get(request.username)
   .then(updateCart)
   .then((user) => {
+    if(user.cart.length == 0){
+      return Promise.reject("There are currently no items in your cart.")
+    }
+
     for(let product of user.cart){
       if(product.inventory_count < product[1].quantity){
         return Promise.reject(`There are currently only ${product.inventory_count} units of '${product[0]}' available in stock. In order to complete your cart please remove ${product[1].quantity - product.inventory_count} unit(s)`);

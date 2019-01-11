@@ -12,54 +12,36 @@ module.exports.userAuthorizer = (event, context, callback) => {
 
     try {
         const user = JWT.verify(token, secrets.jwtSecret);
-        const effect = 'Allow';
-        const userId = user.username;
-        const authorizerContext = { user: JSON.stringify(user) };
-        const policy = {
-            principalId: userId,
-            policyDocument: {
-            Version: '2012-10-17',
-            Statement: [
-                {
-                Action: 'execute-api:Invoke',
-                Effect: effect,
-                Resource: event.methodArn,
-                },
-            ],
-            },
-            authorizerContext,
-        };
-        return callback(null, policy);
+        context.succeed(generatePolicy(user.username, 'Allow', event.methodArn.split('/').slice(0, 2).join('/') + '/*'));
     } catch (e) {
-      callback('Unauthorized');
+        context.fail("Unauthorized");
     }  
 }
 
 module.exports.adminAuthorizer = (event, context, callback) => {
     if(event.authorizationToken === secrets.adminSecret){
-        const effect = 'Allow';
-        const authorizerContext = { user: JSON.stringify({
-            user: 'admin'
-        }) };
-        const policy = {
-            principalId: 'admin',
-            policyDocument: {
-              Version: '2012-10-17',
-              Statement: [
-                {
-                  Action: 'execute-api:Invoke',
-                  Effect: effect,
-                  Resource: event.methodArn,
-                },
-              ],
-            },
-            authorizerContext,
-          };
-        return callback(null, policy);
+        context.succeed(generatePolicy('admin', 'Allow', event.methodArn));
     }else{
-        return callback('Unauthorized');
+        context.fail("Unauthorized");
     } 
 }
+
+const generatePolicy = (principalId, effect, resource) => {
+    const authResponse = {};
+    authResponse.principalId = principalId;
+    if (effect && resource) {
+      const policyDocument = {};
+      policyDocument.Version = '2012-10-17';
+      policyDocument.Statement = [];
+      const statementOne = {};
+      statementOne.Action = 'execute-api:Invoke';
+      statementOne.Effect = effect;
+      statementOne.Resource = resource;
+      policyDocument.Statement[0] = statementOne;
+      authResponse.policyDocument = policyDocument;
+    }
+    return authResponse;
+  };
 
 module.exports.jwt = {};
 

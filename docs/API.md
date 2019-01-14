@@ -1,6 +1,19 @@
 # API Usage Guide
+Welcome to the Serverless Marketplace API usage documentation. The purpose of this doc is to give users a brief run-down of the different actions they can perform on this API and what to expect from it. As the system is completely serverless and runs on AWS Lambda functions, the first few requests on endpoints maybe be slightly slower than subsequent requests, this is due to the lambda functions performing a cold start. 
+
+Additionally the provided Postman tests can be used to interface with the API. In order to do this, import `docs/examples.json` collection and `test/Cloud.postman_environment.json` environment into Postman. The Cloud environment contains preset variables which work with the environment in order to ease the use of the example requests.
+
 > *Heads up!* 
 > All API requests **will** require the pre-provided `x-api-key` header
+
+## Response Codes
+
+The following list provides a general outline for response codes returned by the system
+- `200 | Success` : Action was successful
+- `400 | Bad Request` : Action was authorized however it is invalid, see error message for more information
+- `401 | Unauthorized` : The provided credentials are invalid for the requested action. This is typically in regards to an invalid `Authorization`
+- `403 | Forbidden` : The action is forbidden. This is typically in regards to a missing `x-api-key` header
+
 
 ## Products
 ### Querying Inventory
@@ -13,7 +26,7 @@ In order to query the marketplace inventory, the endpoint `/products/query` can 
       "onlyShowAvailableItems": false, //optional, defaults to false, 
   }
   ```
-The query system will search for items that contain the search phrase.
+The query system will search for items that contain the search phrase. The `onlyShowAvailableItems` field is an optional field to allow users to filter products in the query that are out-of-stock (i.e. `inventory_count` == 0) and will default to false if it is not in a request. 
 
 ### Updating Inventory
 Additionally an admin user can make modifications to the marketplace inventory. This is done using the `/products/update` endpoint. This endpoint supports the `POST` action. 
@@ -65,7 +78,7 @@ If successful the following response will be received from the endpoint
     "totalCost": 50,
     "cart": [
         [
-            "blue sweater",
+            "Blue Sweater",
             {
                 "quantity": 1,
                 "price": 50
@@ -97,7 +110,7 @@ If successful, one unit of the requested item will be added to the shopping cart
       "totalCost": 50,
       "cart": [
           [
-              "red sweater",
+              "Red Sweater",
               {
                   "quantity": 1,
                   "price": 50

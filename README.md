@@ -4,7 +4,7 @@
 The goal of this submission is to create the barebones of an online marketplace. The marketplace is accessed via a REST API which allows users to get available products, create a cart, add or remove items from the cart and finally 'complete' the cart, which finalizes the sale and updates inventory counts of the marketplace. 
 
 ## System Architecture
-The system was designed using a serverless architecture. This allowed the system to be split up into multiple separate logical components which run independently of each other. As the system is serverless, it is also stateless and thus in order to add persistance functionality a NoSQL database was used. The entire system is setup and managed using the [Serverless Framework](https://serverless.com) and is hosted on Amazon Web Services (AWS). The individual functions run as AWS Lambda functions, while AWS DynamoDB is used as the NoSQL database. This system architecture was chosen as it allows for great flexibility and scalability.
+The system was designed using a serverless architecture. This allowed the system to be split up into multiple separate logical components which run independently of each other. As the system is serverless, it is also stateless and thus in order to add persistance functionality a NoSQL database was used. The entire system is setup and managed using the [Serverless Framework](https://serverless.com) and is hosted on Amazon Web Services (AWS). The individual functions run as AWS Lambda functions, while AWS DynamoDB is used as the NoSQL database. This system architecture was chosen as it allows for great flexibility and scalability. As the system is completely serverless and runs on AWS Lambda functions, the first few requests on endpoints maybe be slightly slower than subsequent requests, this is due to the lambda functions performing a cold start. 
 
 ### Endpoints
 The following endpoints are available in order to use the API system.
@@ -28,7 +28,7 @@ The marketplace inventory consists of a NoSQL table with entries such as the fol
     "inventory_count": 10
 }
 ```
-The main key of the table is the `title` field with key type of `HASH`. Item titles can be queried quite flexibly using the API as the system will search for items with titles that contain the search query. Items that are not currently available (i.e. `inventory_count` < 0) can also be filtered. 
+The main key of the table is the `title` field with key type of `HASH`. Item titles can be queried quite flexibly using the API as the system will search for items with titles that contain the search query. Items that are not currently available (i.e. `inventory_count` == 0) can also be filtered. 
 The marketplace inventory can also be updated (to add or remove items, modify inventory counts or prices) using the API, only a user with the administrator secret can perform this action.
 
 ## Shopping Cart
@@ -110,3 +110,9 @@ These tests assume that an environment has been setup already and essentially pe
 ### Future Improvements
 
 In reality, tests would be done using the Mocha/Chai testing frameworks and run both on an emulated "offline" version of the system and directly on the serverless system. These tests would ideally be performed by a CI/CD system on every deployment. The choice of a NodeJS testing framework such as Mocha over the Postman implementation is that, although it would take longer to set the tests up (as compared to Postman), system tests would be much more flexible. Whereas Postman tests would need to be edited through the Postman GUI and re-exported, a testing framework would use NodeJS code which can be much more easily modified and stored in version control.
+
+## API Documentation
+
+For the purpose of keeping this submission simple, the [API.md](/docs/API.md) file was created as a guide to the API. This guide should be self-sufficient in documenting how to properly utilize the API given typical use cases, including addressing some common pitfalls new users may have. Additionally, in terms of security, the documentation also includes API secrets and API endpoint links, this is done on purpose to ease the review process for recruiters. 
+
+In reality, a proper API documentation framework would be used such as Swagger Doc or even Postman API documentation. This would allow the service to have a separate web service which clearly documents different requests that can be made and defines different responses that the user can expect to receive from the system. Furthermore secrets would simply  be non-existent in the codebase on available in source control.

@@ -1,0 +1,612 @@
+{
+	"info": {
+		"_postman_id": "1bb1b94f-0b28-45aa-a0fa-6049515bd64c",
+		"name": "Serverless Marketplace API Examples",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Update",
+					"item": [
+						{
+							"name": "Add/Update Item",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b624e714-2fa7-4764-89af-2734b3f383e6",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{adminSecret}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"title\":\"\",\n\t\"price\":0,\n\t\"inventory_count\":0\n}"
+								},
+								"url": {
+									"raw": "{{url}}/products/update",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"update"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Query",
+					"item": [
+						{
+							"name": "Get All Items",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "5c75540c-a047-4710-88ca-8238b6c2ef6e",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/products/query",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"query"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Query  - Filter unvailable items - False",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "07a8d85b-0389-411b-913b-0ec580dd9560",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"query\":\"\",\n\t\"onlyShowAvailableItems\":false\n}"
+								},
+								"url": {
+									"raw": "{{url}}/products/query",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"query"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Query - Filter unvailable items - True",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "42fe8adb-5c44-4f6b-a7d7-b051fd8c7360",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"query\":\"\",\n\t\"onlyShowAvailableItems\":true\n}"
+								},
+								"url": {
+									"raw": "{{url}}/products/query",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"query"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "Cart",
+			"item": [
+				{
+					"name": "Create",
+					"item": [
+						{
+							"name": "User create success",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2a5423dc-6339-4013-9f77-7e179d6c7ddb",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "116e2d1e-b211-445f-b329-742d4a4444c5",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"    var data = JSON.parse(responseBody);",
+											"    pm.environment.set('userSecret', data.secret);",
+											"})",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\":\"\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/cart/create",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"cart",
+										"create"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Update",
+					"item": [
+						{
+							"name": "Add Item to Cart",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2a5423dc-6339-4013-9f77-7e179d6c7ddb",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "116e2d1e-b211-445f-b329-742d4a4444c5",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{userSecret}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\":\"\",\n\t\"item\":\"\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/cart/update",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"cart",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove Item from Cart",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2a5423dc-6339-4013-9f77-7e179d6c7ddb",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "116e2d1e-b211-445f-b329-742d4a4444c5",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{userSecret}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\":\"\",\n\t\"item\":\"\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/cart/update",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"cart",
+										"update"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Info",
+					"item": [
+						{
+							"name": "Get User Cart",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2a5423dc-6339-4013-9f77-7e179d6c7ddb",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "116e2d1e-b211-445f-b329-742d4a4444c5",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{userSecret}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\":\"\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/cart/info",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"cart",
+										"info"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Complete",
+					"item": [
+						{
+							"name": "Complete Cart",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2a5423dc-6339-4013-9f77-7e179d6c7ddb",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "116e2d1e-b211-445f-b329-742d4a4444c5",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "{{x-api-key}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{userSecret}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\":\"\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/cart/complete",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"cart",
+										"complete"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "486ef32f-27b8-467a-b43d-2e6634de3c2d",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6c4549c8-8f22-4561-9ae4-3eff24252bd3",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "36c18899-baca-4317-aaea-52cb0d609e8e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "384d6154-d937-4434-a51a-927ae4f7aa3f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

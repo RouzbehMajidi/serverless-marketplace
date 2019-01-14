@@ -3,6 +3,8 @@ Welcome to the Serverless Marketplace API usage documentation. The purpose of th
 
 Additionally the provided Postman tests can be used to interface with the API. In order to do this, import `docs/examples.json` collection and `test/Cloud.postman_environment.json` environment into Postman. The Cloud environment contains preset variables which work with the environment in order to ease the use of the example requests.
 
+Additionally the provided Postman tests can be used to interface with the API. In order to do this, import `docs/examples.json` collection and `test/Cloud.postman_environment.json` environment into Postman. The Cloud environment contains preset variables which work with the environment in order to ease the use of the example requests.
+
 > *Heads up!* 
 > All API requests **will** require the pre-provided `x-api-key` header
 

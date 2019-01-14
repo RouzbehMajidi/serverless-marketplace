@@ -41,7 +41,7 @@ A user's shopping cart is stored into a NoSQL table with the following format:
     "username": "waldo",
     "cart": [
         [
-            "blue sweater",
+            "Blue Sweater",
             {
                 "quantity": 1
             }
@@ -56,7 +56,7 @@ When the system displays info to user about their cart, it is done with the foll
     "totalCost": 50,
     "cart": [
         [
-            "blue sweater",
+            "Blue Sweater",
             {
                 "quantity": 1,
                 "price": 50

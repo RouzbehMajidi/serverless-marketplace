@@ -17,13 +17,13 @@ module.exports.products.update = productJSON => {
       reject("Invalid request.");
     }
     if (!product.title || product.title == "") {
-      reject("Invalid item title.");
+      reject("Invalid product title.");
     }
     if (!product.price || product.price < 0) {
-      reject("Invalid item price.");
+      reject("Invalid product price.");
     }
-    if (!product.inventory_count || product.inventory_count < 0) {
-      reject("Invalid item inventory count.");
+    if (!product.quantity || product.quantity < 0) {
+      reject("Invalid product quantity.");
     }
     resolve(product);
   });
@@ -130,7 +130,7 @@ module.exports.carts.update = (requestJSON, principalID) => {
   }
 
   return db.products.validate(request.item).then(item => {
-    if (!item || item.inventory_count == 0) {
+    if (!item || item.quantity == 0) {
       return Promise.reject("Item not available.");
     } else {
       return request;

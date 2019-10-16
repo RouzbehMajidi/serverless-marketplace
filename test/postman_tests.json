@@ -468,7 +468,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"title\":\"test sweater\",\n\t\"price\":10,\n\t\"inventory_count\":-1\n}"
+									"raw": "{\n\t\"title\":\"test sweater\",\n\t\"price\":10,\n\t\"quantity\":-1\n}"
 								},
 								"url": {
 									"raw": "{{url}}/products/update",
@@ -521,7 +521,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"title\":\"test sweater\",\n\t\"price\":10,\n\t\"inventory_count\":10\n}"
+									"raw": "{\n\t\"title\":\"test sweater\",\n\t\"price\":10,\n\t\"quantity\":10\n}"
 								},
 								"url": {
 									"raw": "{{url}}/products/update",
@@ -574,7 +574,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"title\":\"test sweater\",\n\t\"price\":10,\n\t\"inventory_count\":1\n}"
+									"raw": "{\n\t\"title\":\"test sweater\",\n\t\"price\":10,\n\t\"quantity\":1\n}"
 								},
 								"url": {
 									"raw": "{{url}}/products/update",

@@ -28,7 +28,7 @@ In order to query the marketplace inventory, the endpoint `/products/query` can 
       "onlyShowAvailableItems": false, //optional, defaults to false, 
   }
   ```
-The query system will search for items that contain the search phrase. The `onlyShowAvailableItems` field is an optional field to allow users to filter products in the query that are out-of-stock (i.e. `inventory_count` == 0) and will default to false if it is not in a request. 
+The query system will search for items that contain the search phrase. The `onlyShowAvailableItems` field is an optional field to allow users to filter products in the query that are out-of-stock (i.e. `quantity` == 0) and will default to false if it is not in a request. 
 
 ### Updating Inventory
 Additionally an admin user can make modifications to the marketplace inventory. This is done using the `/products/update` endpoint. This endpoint supports the `POST` action. 
@@ -40,7 +40,7 @@ The following body can be posted to the endpoint in order to add/update an item.
 {
     "title": "<item-title>", //required
     "price": price, //required
-    "inventory_count": inventory_count, //required
+    "quantity": quantity, //required
 }
 ```
 

@@ -35,16 +35,21 @@ module.exports.getAll = async () => {
       let response = {
         statusCode: 200
       };
+
+      var message;
+
       if (items.length == 0) {
-        response.body = JSON.stringify({
-          message: "No products available. ☹️"
-        });
+        message = "No products available. ☹️";
       } else {
-        response.body = JSON.stringify({
-          message: `There are currently ${items.length} item(s) in the marketplace.`,
-          items: items
-        });
+        message = `There are currently ${items.length} item(s) in the marketplace.`;
       }
+
+      response.body = JSON.stringify({
+        message: message,
+        itemCount: items.length,
+        items: items
+      });
+
       return response;
     })
     .catch(err => {
@@ -66,16 +71,21 @@ module.exports.query = async event => {
       let response = {
         statusCode: 200
       };
+
+      var message;
+
       if (items.length == 0) {
-        response.body = JSON.stringify({
-          message: "No products match search query."
-        });
+        message = "No products match search query.";
       } else {
-        response.body = JSON.stringify({
-          message: `${items.length} product(s) found.`,
-          products: items
-        });
+        message = `${items.length} product(s) found.`;
       }
+
+      response.body = JSON.stringify({
+        message: message,
+        itemCount: items.length,
+        items: items
+      });
+
       return response;
     })
     .catch(err => {

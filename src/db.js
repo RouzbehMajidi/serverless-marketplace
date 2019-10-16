@@ -71,8 +71,7 @@ module.exports.products.query = productQuery => {
     TableName: process.env.PRODUCTS_TABLE
   };
   if (productQuery.onlyShowAvailableItems) {
-    params.FilterExpression =
-      "contains (title, :title) and inventory_count > :count";
+    params.FilterExpression = "contains (title, :title) and quantity > :count";
     params.ExpressionAttributeValues = {
       ":title": productQuery.query,
       ":count": 0

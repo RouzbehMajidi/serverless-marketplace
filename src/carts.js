@@ -189,15 +189,15 @@ module.exports.complete = async event => {
       }
 
       for (let product of user.cart) {
-        if (product.inventory_count < product[1].quantity) {
+        if (product.quantity < product[1].quantity) {
           return Promise.reject(
-            `There are currently only ${product.inventory_count} units of '${
+            `There are currently only ${product.quantity} units of '${
               product[0]
             }' available in stock. In order to complete your cart please remove ${product[1]
-              .quantity - product.inventory_count} unit(s)`
+              .quantity - product.quantity} unit(s)`
           );
         } else {
-          product.inventory_count -= product[1].quantity;
+          product.quantity -= product[1].quantity;
         }
       }
       return user;
@@ -274,7 +274,7 @@ module.exports.info = async event => {
 var getItem = item => {
   return db.products.get(item[0]).then(product => {
     item[1].price = product.price;
-    item.inventory_count = product.inventory_count;
+    item.quantity = product.quantity;
     return item;
   });
 };
@@ -293,7 +293,7 @@ var updateItem = item => {
   var product = {
     title: item[0],
     price: item[1].price,
-    inventory_count: item.inventory_count
+    quantity: item.quantity
   };
 
   return db.products.update(product).then(product => {

@@ -49,7 +49,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"title\":\"\",\n\t\"price\":0,\n\t\"inventory_count\":0\n}"
+									"raw": "{\n\t\"title\":\"\",\n\t\"price\":0,\n\t\"quantity\":0\n}"
 								},
 								"url": {
 									"raw": "{{url}}/products/update",

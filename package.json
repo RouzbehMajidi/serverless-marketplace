@@ -1,5 +1,5 @@
 {
-  "name": "shopify-backend-s2019",
+  "name": "serverless-marketplace",
   "version": "0.0.1",
   "description": "Shopify Backend Developer Intern challenge for Summer 2019",
   "main": "carts.js",
@@ -9,21 +9,22 @@
   },
   "devDependencies": {
     "aws-sdk": "^2.384.0",
-    "newman": "^4.3.1",
+    "newman": "^4.5.5",
     "serverless-offline": "^3.32.1"
   },
   "scripts": {
+    "deploy": "sls deploy && npm run test-cloud",
     "test-local": "newman run test/postman_tests.json -e test/Local.postman_environment.json",
     "test-cloud": "newman run test/postman_tests.json -e test/Cloud.postman_environment.json"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RouzbehMajidi/shopify-backend-S2019.git"
+    "url": "git+https://github.com/RouzbehMajidi/serverless-marketplace.git"
   },
   "author": "Rouzbeh Majidi",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/RouzbehMajidi/shopify-backend-S2019/issues"
+    "url": "https://github.com/RouzbehMajidi/serverless-marketplace/issues"
   },
-  "homepage": "https://github.com/RouzbehMajidi/shopify-backend-S2019#readme"
+  "homepage": "https://github.com/RouzbehMajidi/serverless-marketplace#readme"
 }

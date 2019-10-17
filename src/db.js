@@ -46,25 +46,6 @@ module.exports.products.get = productTitle => {
   });
 };
 
-//Products table validate product exists in database function
-module.exports.products.validate = productTitle => {
-  var params = {
-    TableName: process.env.PRODUCTS_TABLE,
-    Key: {
-      title: productTitle
-    }
-  };
-  return new Promise((resolve, reject) => {
-    DynamoClient.get(params, (err, data) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(data.Item);
-      }
-    });
-  });
-};
-
 //Products table query product function
 module.exports.products.query = productQuery => {
   var params = {

@@ -25,6 +25,9 @@ module.exports.products.update = productJSON => {
     if (!product.quantity || product.quantity < 0) {
       reject("Invalid product quantity.");
     }
+    if (product.photo && product.photo == "") {
+      reject("Invalid product photo.");
+    }
     resolve(product);
   });
 };
@@ -129,7 +132,7 @@ module.exports.carts.update = (requestJSON, principalID) => {
     return Promise.reject("Invalid item.");
   }
 
-  return db.products.validate(request.item).then(item => {
+  return db.products.get(request.item).then(item => {
     if (!item || item.quantity == 0) {
       return Promise.reject("Item not available.");
     } else {

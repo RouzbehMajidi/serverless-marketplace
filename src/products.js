@@ -1,12 +1,31 @@
 "use strict";
 
+var crypto = require("crypto");
+
 var validate = require("./validate.js");
 var db = require("./db.js");
+var s3 = require("./s3.js");
 
 //Create/update products handler
 module.exports.update = async event => {
   return await validate.products
     .update(event.body)
+    .then(async item => {
+      if (item.photo) {
+        var photoKey = crypto
+          .createHash("sha256")
+          .update(item.title)
+          .digest("hex");
+
+        await s3.savePhoto(photoKey, Buffer.from(item.photo, "base64"));
+
+        item.photo = `https://${process.env.PHOTO_BUCKET}.s3.amazonaws.com/${photoKey}`;
+      } else {
+        item.photo = `https://${process.env.PHOTO_BUCKET}.s3.amazonaws.com/default.jpg`;
+      }
+
+      return item;
+    })
     .then(db.products.update)
     .then(item => {
       return {

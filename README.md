@@ -13,13 +13,21 @@ The system was designed using a serverless architecture. This allowed the system
 The following endpoints are available in order to use the API system.
 
 - Products
-  - `POST` - `/products/update` - Private (Admin Only)
-  - `POST`, `GET` - `/products/query` - Public
+  - `/products/update` - Private (Admin Only)
+    - `POST`
+  - `/products/query` - Public
+    - `GET`
+    - `POST`
 - Cart
-  - `POST` - `/cart/create` - Public
-  - `PUT`, `DELETE` - `/cart/update` - Private (User Only)
-  - `POST` - `/cart/info` - Private (User Only)
-  - `POST` - `/cart/complete` - Private (User Only)
+  - `/cart/create` - Public
+    - `POST`
+  - `/cart/update` - Private (User Only)
+    - `PUT`
+    - `DELETE`
+  - `/cart/info` - Private (User Only)
+    - `POST`
+  - `/cart/complete` - Private (User Only)
+    - `POST`
 
 The usage of these endpoints and the system in general is described in more detail [here](docs/API.md).
 
@@ -31,12 +39,15 @@ The marketplace inventory consists of a NoSQL table with entries such as the fol
 {
   "title": "Blue Sweater",
   "price": 50,
-  "quantity": 10
+  "quantity": 10,
+  "photo": "https://serverless-marketplace-photos.s3.amazonaws.com/default.jpg"
 }
 ```
 
 The main key of the table is the `title` field with key type of `HASH`. Item titles can be queried quite flexibly using the API as the system will search for items with titles that contain the search query. Items that are not currently available (i.e. `quantity` == 0) can also be filtered.
-The marketplace inventory can also be updated (to add or remove items, modify inventory counts or prices) using the API, only a user with the administrator secret can perform this action.
+The marketplace inventory can also be updated (to add or remove items, modify inventory counts or prices, update product photo) using the API, only a user with the administrator secret can perform this action.
+
+Product photos can be updated using the API, it is expected that the photo field contains the photo's data encoded in Base 64. Common image mime types such as `jpeg`, `png`, `gif`, `bmp` and more are supported. Photos can be a maximum of 1 MB. The uploaded product photo is then stored into an S3 bucket with its key being the SHA256 of the respective products title. The S3 bucket itself is `private`, i.e. doesn't allow public listing of it's files, however the photos uploaded are `public-read`, allowing anyone with a url to access the photo. The URL of the photo is then stored in the DynamoDB product table and is returned with other product info.
 
 ## Shopping Cart
 
@@ -108,7 +119,9 @@ When a user creates a cart, they first provide their username over HTTPS to the 
 
 The user then uses this secret in the Authorization header of their requests to more sensitive endpoints which modify, complete or show info about their cart.
 
-### Future Improvements
+The S3 bucket used for storing product photos is private, which means that it won't allow mass listing of the objects it stores. However the photos themselves allow public read access. This was done since they are not expected to be sensitive in nature, only product photos for an already "public" product listing page.
+
+### Future Security Improvements
 
 In reality, in such a system the single point of failure for the JWT tokens would be the secret, should this secret be obtained by a potential attacker, new JWT's can be forged by the attacker allowing them to access any user's cart, additionally the generated tokens do not have an expiry, allowing an attacker to use them endlessly.
 

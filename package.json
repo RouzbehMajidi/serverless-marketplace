@@ -4,7 +4,7 @@
   "description": "Shopify Backend Developer Intern challenge for Summer 2019",
   "main": "carts.js",
   "dependencies": {
-    "file-type": "^12.3.0",
+    "file-type": "^16.5.4",
     "jsonwebtoken": "^8.4.0"
   },
   "devDependencies": {

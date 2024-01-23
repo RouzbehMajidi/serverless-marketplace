@@ -5,7 +5,7 @@
   "main": "carts.js",
   "dependencies": {
     "file-type": "^12.3.0",
-    "jsonwebtoken": "^8.4.0"
+    "jsonwebtoken": "^9.0.0"
   },
   "devDependencies": {
     "aws-sdk": "^2.384.0",
